@@ -10,11 +10,15 @@ export const BaseLayout = (props: Props) => {
 
   return (
    <>
-    <Grid className={props.className}>
-      <Col md={4}><div style={{ background: "#ddd", padding: "1rem" }}>Column 1</div></Col>
-      <Col md={4}><div style={{ background: "#bbb", padding: "1rem" }}>Column 2</div></Col>
-      <Col md={4}><div style={{ background: "#999", padding: "1rem" }}>Column 3</div></Col>
-    </Grid>
+      <Grid className={props.className}>
+  <Col sm={6} md={4} lg={3} xl={2}>
+    <div style={{ background: "#ccc", padding: "1rem" }}>Responsive Column</div>
+  </Col>
+  <Col sm={6} md={8} lg={9} xl={10}>
+    <div style={{ background: "#aaa", padding: "1rem" }}>Another Column</div>
+  </Col>
+</Grid>
+
    </>
   );
 }
