@@ -3,11 +3,15 @@
 import React from "react";
 import "../../assets/styles/grid.css";
 
-interface GridProps extends React.HTMLAttributes<HTMLDivElement> {
+interface GridProps {
   children: React.ReactNode;
+  className?: string;
+  [key: string]: any;
 }
 
-export const Grid: React.FC<GridProps> = ({ children, className = '', ...rest }) => {
+export const Grid = (props: GridProps) => {
+  const { children, className = '', ...rest } = props;
+
   return (
     <div className={`grid ${className}`} {...rest}>
       {children}
@@ -15,16 +19,43 @@ export const Grid: React.FC<GridProps> = ({ children, className = '', ...rest })
   );
 };
 
-interface ColProps extends React.HTMLAttributes<HTMLDivElement> {
-  span?: number; // default to 12
-  md?: number; // medium+ screen size span
+interface ColProps {
   children: React.ReactNode;
+  className?: string;
+  span?: number;
+  sm?: number;
+  md?: number;
+  lg?: number;
+  xl?: number;
+  [key: string]: any;
 }
 
-export const Col: React.FC<ColProps> = ({ span = 12, md, children, className = '', ...rest }) => {
-  const mdClass = md ? `col-md-${md}` : '';
+export const Col = (props: ColProps) => {
+  const {
+    children,
+    className = '',
+    span = 12,
+    sm,
+    md,
+    lg,
+    xl,
+    ...rest
+  } = props;
+
+  const classes = [
+    'col',
+    span ? `col-${span}` : '',
+    sm ? `col-sm-${sm}` : '',
+    md ? `col-md-${md}` : '',
+    lg ? `col-lg-${lg}` : '',
+    xl ? `col-xl-${xl}` : '',
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ');
+
   return (
-    <div className={`col ${mdClass} ${className}`} {...rest}>
+    <div className={classes} {...rest}>
       {children}
     </div>
   );
