@@ -86,3 +86,19 @@ This is a minimal, fully responsive 12-column grid system built using **CSS Grid
     <div style={{ background: "#aaa", padding: "1rem" }}>Another Column</div>
   </Col>
 </Grid>
+
+
+## Colours for web theme:
+
+| Purpose           | Name          | Color         | Hex       | Notes                                      |
+| ----------------- | ------------- | ------------- | --------- | ------------------------------------------ |
+| **Primary**       | Primary       | 🟦 Dark Blue  | `#004080` | Base color                                 |
+| **Primary Light** | Light Blue    | 🟦 Sky Tint   | `#336699` | For hover states or light background fills |
+| **Primary Dark**  | Navy          | 🔵 Deep Navy  | `#002244` | Headers, footers, emphasis                 |
+| **Accent 1**      | Teal Accent   | 🟩 Teal       | `#00A4A4` | For calls to action or secondary buttons   |
+| **Accent 2**      | Orange Accent | 🟧 Orange     | `#FF6600` | Highlights, alerts, contrast               |
+| **Background**    | Soft White    | ⚪ Off-white   | `#F8F9FA` | Main page background                       |
+| **Surface**       | Light Gray    | ⚪ Light Gray  | `#E6E9F0` | Card backgrounds, secondary UI             |
+| **Border**        | Medium Gray   | ⚪ Border Gray | `#CCD6DD` | Input borders, dividers                    |
+| **Text Primary**  | Text Dark     | ⚫ Near Black  | `#1A1A1A` | Headings and main body text                |
+| **Text Muted**    | Text Gray     | ⚫ Gray        | `#555F6B` | For subtext, muted elements                |
