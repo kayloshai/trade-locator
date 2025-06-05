@@ -5,7 +5,7 @@ function App() {
 
   return (
     <>
-      <BaseLayout className='Grid'/>
+      <BaseLayout className='Grid' title="MSP Software Solutions" content={"Content goes here"}/>
     </>
   )
 }

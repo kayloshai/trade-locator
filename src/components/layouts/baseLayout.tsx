@@ -1,24 +1,33 @@
 // src/components/BaseLayout.tsx
-import { Grid, Col } from "./grid"
+import { Col } from "./grid"
+import { Header } from "../header/header";
+import { NavMenu } from "../navigation/horizontalNav";
+import { Footer } from "../footer/footer";
 
 interface Props {
   className?: string;
+  title: string,
+  content: React.ReactNode
   onClick?: () => any;
 }
 
-export const BaseLayout = (props: Props) => {
+export const BaseLayout = ({className, title, content}: Props) => {
 
   return (
-   <>
-      <Grid className={props.className}>
-  <Col sm={6} md={4} lg={3} xl={2}>
-    <div style={{ background: "#ccc", padding: "1rem" }}>Responsive Column</div>
+   <div style={{background: "#F8F9FA"}} className={className}>
+   <Header>
+        <h1>{title}</h1>
+        <Col>
+    <NavMenu/>
   </Col>
-  <Col sm={6} md={8} lg={9} xl={10}>
-    <div style={{ background: "#aaa", padding: "1rem" }}>Another Column</div>
-  </Col>
-</Grid>
+      </Header>
+      <main style={{ padding: "2rem" }}>
+        <p style={{color: "#1A1A1A"}}>{content}</p>
+        {/* lots of content to scroll */}
+        <div style={{ height: "60vh",color: "#1A1A1A"}}>Scroll down to test sticky header</div>
+      </main>
+      <Footer children={"MSP Software Solutions. All rights reserved."}/>
 
-   </>
+   </div>
   );
 }
