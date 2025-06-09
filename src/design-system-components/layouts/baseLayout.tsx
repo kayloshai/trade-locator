@@ -1,7 +1,7 @@
 import { Header } from "../header/header";
 import { Footer } from "../footer/footer";
-//import { Card } from "../card/card";
-import { Placeholder } from "../placeholder/placeholder";
+import { Card } from "../card/card";
+//import { Placeholder } from "../placeholder/placeholder";
 
 interface Props {
   id?: string;
@@ -39,9 +39,9 @@ export const BaseLayout = ({ id }: Props) => {
               <hr className="d-sm-none" />
             </div>
             <div className="col-sm-8" style={{ overflow: "auto" }}>
-              {/* <Card />
-              <Card /> */}
-              <Placeholder />
+              <Card />
+              <Card />
+              {/* <Placeholder /> */}
             </div>
           </div>
         </div>
