@@ -53,40 +53,6 @@ export default tseslint.config({
 })
 ```
 
-## Grid implementation Docs:
-# 🧱 Custom Responsive Grid System (React + TypeScript)
-
-This is a minimal, fully responsive 12-column grid system built using **CSS Grid** and **React components**. It supports responsive breakpoints via props like `sm`, `md`, `lg`, and `xl`, just like Bootstrap.
-
----
-
-## ✅ Features
-
-- **12-column CSS Grid** layout
-- Supports breakpoints:
-  - `sm` → ≥576px
-  - `md` → ≥768px
-  - `lg` → ≥992px
-  - `xl` → ≥1200px
-- Simple prop-based usage
-- Easy to extend with custom styles or utilities
-
----
-
-## 🔧 Usage
-
-### Example
-
-```tsx
-<Grid>
-  <Col sm={6} md={4} lg={3} xl={2}>
-    <div style={{ background: "#ccc", padding: "1rem" }}>Responsive Column</div>
-  </Col>
-  <Col sm={6} md={8} lg={9} xl={10}>
-    <div style={{ background: "#aaa", padding: "1rem" }}>Another Column</div>
-  </Col>
-</Grid>
-
 
 ## Colours for web theme:
 
