@@ -1,7 +1,8 @@
 import { Header } from "../header/header";
 import { Footer } from "../footer/footer";
-import { Card } from "../card/card";
+//import { Card } from "../card/card";
 //import { Placeholder } from "../placeholder/placeholder";
+import { Carousel } from "../carousel/carousel";
 
 interface Props {
   id?: string;
@@ -16,32 +17,33 @@ export const BaseLayout = ({ id }: Props) => {
         <div className="container mt-5">
           <div className="row">
             <div className="col-sm-4">
-              <h2>About Me</h2>
-              <h5>Photo of me:</h5>
-              <div className="fakeimg">Fake Image</div>
-              <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
-              <h3 className="mt-4">Some Links</h3>
-              <p>Lorem ipsum dolor sit ame.</p>
+              <h2>About Us</h2>
+              {/* <h5>Photo of me:</h5> */}
+              {/* <div className="fakeimg">Fake Image</div> */}
+              <p>We provide world class services at the tip of your fingers in the comfort of your home.</p>
+              <h3 className="mt-4">Categories</h3>
+              <p>Offered services in several categories</p>
               <ul className="nav nav-pills flex-column">
                 <li className="nav-item">
-                  <a className="nav-link active" href="#">Active</a>
+                  <a className="nav-link" href="#">Plumbing</a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">Link</a>
+                  <a className="nav-link" href="#">Carpentry</a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">Link</a>
+                  <a className="nav-link" href="#">Masonry</a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link disabled" href="#">Disabled</a>
+                  <a className="nav-link" href="#">Engineering</a>
                 </li>
               </ul>
               <hr className="d-sm-none" />
             </div>
             <div className="col-sm-8" style={{ overflow: "auto" }}>
-              <Card />
-              <Card />
+              {/* <Card />
+              <Card /> */}
               {/* <Placeholder /> */}
+              <Carousel />
             </div>
           </div>
         </div>
