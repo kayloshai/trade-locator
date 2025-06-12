@@ -1,6 +1,7 @@
 import { Header } from "../header/header";
 import { Footer } from "../footer/footer";
 import { Placeholder } from "../placeholder/placeholder";
+import { Link } from "react-router-dom";
 
 interface Props {
   id?: string;
@@ -22,18 +23,23 @@ export const BaseLayout = ({ id }: Props) => {
               <h3 className="mt-4">Categories</h3>
               <p>Offered services in several categories</p>
               <ul className="nav nav-pills flex-column">
-                <li className="nav-item">
-                  <a className="nav-link" href="#">Plumbing</a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="#">Carpentry</a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="#">Masonry</a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="#">Engineering</a>
-                </li>
+                <Link to="plumbing">
+                  <li className="nav-item">
+                    <a className="nav-link" href="plumbing">Plumbing</a>
+                  </li>
+                </Link>
+                <Link to="/carpentry">
+                  <li className="nav-item">
+                    <a className="nav-link" href="carpentry">Carpentry</a>
+                  </li></Link>
+                <Link to="/masonry">
+                  <li className="nav-item">
+                    <a className="nav-link" href="masonry">Masonry</a>
+                  </li></Link>
+                <Link to="/engineering">
+                  <li className="nav-item">
+                    <a className="nav-link" href="engineering">Engineering</a>
+                  </li></Link>
               </ul>
               <hr className="d-sm-none" />
             </div>

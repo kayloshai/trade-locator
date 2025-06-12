@@ -5,10 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "local": "vite build --config vite.config.ts && yarn preview",
     "build": "vite build",
     "build:full": "tsc -b && vite build",
-    "serve": "serve",
-    "build-local": "NODE_ENV=production yarn build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
