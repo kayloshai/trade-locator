@@ -1,8 +1,6 @@
 import { Header } from "../header/header";
 import { Footer } from "../footer/footer";
-//import { Card } from "../card/card";
 import { Placeholder } from "../placeholder/placeholder";
-//import { Carousel } from "../carousel/carousel";
 
 interface Props {
   id?: string;
@@ -40,14 +38,10 @@ export const BaseLayout = ({ id }: Props) => {
               <hr className="d-sm-none" />
             </div>
             <div className="col-sm-8" style={{ overflow: "auto" }}>
-              {/* <Card />
-              <Card /> */}
               <Placeholder />
-              {/* <Carousel /> */}
             </div>
           </div>
         </div>
-
       </div>
       <Footer title={"MSP Software Solutions"} />
     </div>
