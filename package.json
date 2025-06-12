@@ -6,6 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "serve": "serve dist",
+    "build-local": "NODE_ENV=production yarn build",
+    "build-serve": "yarn build-local & yarn serve",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -16,6 +19,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
+    "@types/node": "^24.0.1",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
     "@typescript-eslint/eslint-plugin": "^8.33.1",

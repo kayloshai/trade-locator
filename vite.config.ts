@@ -2,7 +2,9 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
+const isProd = process.env.NODE_ENV === 'production'
+
 export default defineConfig({
-  base: './', // 👈 IMPORTANT: Use your repo name here
+  base: isProd ? './trade-locator/' : './',
   plugins: [react()],
 })
