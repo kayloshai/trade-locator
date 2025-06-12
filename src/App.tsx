@@ -6,7 +6,7 @@ import { About } from './design-system-components/pages/about'
 function App() {
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/trade-locator">
       <Routes>
         <Route element={<BaseLayout id='base-layout' />}>
           <Route path="/" element={<Home />} />

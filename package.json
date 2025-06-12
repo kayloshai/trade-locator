@@ -7,9 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "build:full": "tsc -b && vite build",
-    "serve": "serve dist",
+    "serve": "serve",
     "build-local": "NODE_ENV=production yarn build",
-    "build-serve": "yarn build-local & yarn serve",
     "lint": "eslint .",
     "preview": "vite preview"
   },
