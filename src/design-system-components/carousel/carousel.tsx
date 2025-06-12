@@ -1,6 +1,5 @@
-interface Props {
 
-}
+interface Props { }
 
 export const Carousel = ({ }: Props) => {
     return (
@@ -16,22 +15,22 @@ export const Carousel = ({ }: Props) => {
 
                 {/* <!-- The slideshow/carousel --> */}
                 <div className="carousel-inner">
-                    <div className="carousel-item active">
-                        <img src="src/assets/la.jpg" alt="Los Angeles" className="d-block" style={{ width: "100%" }} />
+                    <div className="/carousel-item active">
+                        <img src="arthur-tseng.jpg" alt="Los Angeles" className="d-block" style={{ width: "100%" }} />
                         <div className="carousel-caption">
                             <h3>Los Angeles</h3>
                             <p>We had such a great time in LA!</p>
                         </div>
                     </div>
                     <div className="carousel-item">
-                        <img src="src/assets/chicago.jpg" alt="Chicago" className="d-block" style={{ width: "100%" }} />
+                        <img src="/karsten-winegeart.jpg" alt="Chicago" className="d-block" style={{ width: "100%" }} />
                         <div className="carousel-caption">
                             <h3>Chicago</h3>
                             <p>Thank you, Chicago!</p>
                         </div>
                     </div>
                     <div className="carousel-item">
-                        <img src="src/assets/ny.jpg" alt="New York" className="d-block" style={{ width: "100%" }} />
+                        <img src="/marek-piwnicki.jpg" alt="New York" className="d-block" style={{ width: "100%" }} />
                         <div className="carousel-caption">
                             <h3>New York</h3>
                             <p>We love the Big Apple!</p>
