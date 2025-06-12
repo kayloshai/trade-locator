@@ -7,7 +7,7 @@ interface Props {
 export const Carpentry = ({ className }: Props) => {
 
     return (
-        <div className={className} id="home-page">
+        <div className={className} id="carpentry-page">
             Carpentry
         </div>
     );

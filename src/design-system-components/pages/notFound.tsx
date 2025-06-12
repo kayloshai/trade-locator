@@ -4,11 +4,11 @@ interface Props {
     className?: string;
 }
 
-export const Plumbing = ({ className }: Props) => {
+export const NotFound = ({ className }: Props) => {
 
     return (
-        <div className={className} id="plumbing-page">
-            Plumbing
+        <div className={className} id="notFound-page">
+            NotFound
         </div>
     );
 }
