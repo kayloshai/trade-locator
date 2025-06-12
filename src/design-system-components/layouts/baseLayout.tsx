@@ -1,8 +1,8 @@
 import { Header } from "../header/header";
 import { Footer } from "../footer/footer";
 //import { Card } from "../card/card";
-//import { Placeholder } from "../placeholder/placeholder";
-import { Carousel } from "../carousel/carousel";
+import { Placeholder } from "../placeholder/placeholder";
+//import { Carousel } from "../carousel/carousel";
 
 interface Props {
   id?: string;
@@ -42,8 +42,8 @@ export const BaseLayout = ({ id }: Props) => {
             <div className="col-sm-8" style={{ overflow: "auto" }}>
               {/* <Card />
               <Card /> */}
-              {/* <Placeholder /> */}
-              <Carousel />
+              <Placeholder />
+              {/* <Carousel /> */}
             </div>
           </div>
         </div>
