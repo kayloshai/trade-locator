@@ -30,7 +30,7 @@ jobs:
         run: yarn install
 
       - name: Build Project
-        run: yarn build  # runs: tsc -b && vite build
+        run: NODE_ENV=production yarn build 
       
       - name: Check dist contents
         run: ls -al dist
