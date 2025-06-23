@@ -1,4 +1,3 @@
-// src/src/design-system-components/pages/home.tsx
 
 interface Props {
     className?: string;
