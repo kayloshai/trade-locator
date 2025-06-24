@@ -12,7 +12,7 @@ export const BaseLayout = ({ id }: Props) => {
     <div id={id}>
       <Header title={"MSP Software Solutions"} />
       <div>
-        <div className="container mt-5">
+        <div className="container mt-5 pb-5">
           <Outlet />
         </div>
       </div>
