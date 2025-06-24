@@ -63,8 +63,8 @@ export const Login = ({
                     />
                 </div>
                 <div className="d-flex gap-2 w-100 justify-content-center">
-                    <button className="btn btn-primary" type="submit">{button1Label}</button>
-                    <button className="btn btn-warning" type="button">{button2Label}</button>
+                    <button className="btn btn-primary" type="submit" disabled>{button1Label}</button>
+                    <button className="btn btn-warning" type="button" disabled>{button2Label}</button>
                 </div>
             </form>
         </div>

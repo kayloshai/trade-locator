@@ -61,7 +61,7 @@ export const Quote = ({ className }: Props) => {
                         ref={fileInputRef}
                         accept=".pdf,image/*"
                         onChange={handleFileChange}
-
+                        disabled
                     />
                     {fileName && (
                         <div className="form-text">
