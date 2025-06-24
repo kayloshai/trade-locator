@@ -5,7 +5,7 @@ interface Props {
 }
 
 export const Footer = ({ title }: Props) => (
-    <footer className="mt-5 p-4 bg-dark text-white text-center" role="contentinfo">
+    <footer className="p-4 bg-dark text-white text-center" role="contentinfo">
         <span>
             © {new Date().getFullYear()} {title}
         </span>

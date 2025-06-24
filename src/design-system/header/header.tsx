@@ -1,4 +1,4 @@
-import { Navbar1 } from "../navbar/navbar-horizontal-list-1";
+import { Navbar } from "../navbar/navbar-horizontal-list";
 
 interface Props {
     title: string;
@@ -13,7 +13,7 @@ export const Header = ({ title, slogan }: Props) => {
                 <h1>{title}</h1>
                 <p>{slogan ? slogan : "Slogan goes here"}</p>
             </div>
-            <Navbar1 />
+            <Navbar />
         </>
     );
 }
