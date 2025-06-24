@@ -1,23 +1,23 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { BaseLayout } from './design-system-components/layouts/baseLayout'
-import { Home } from './design-system-components/pages/home'
-import { Carpentry } from './design-system-components/pages/services/carpentry'
-import { Plumbing } from './design-system-components/pages/services/plumbing'
-import { Masonry } from './design-system-components/pages/services/masonry'
-import { Engineering } from './design-system-components/pages/services/engineering'
-import { NotFound } from './design-system-components/pages/notFound'
-import { Specials } from './design-system-components/pages/specials'
-import { Pricing } from './design-system-components/pages/pricing'
-import { FAQs } from './design-system-components/pages/faqs'
-import { About } from './design-system-components/pages/about'
-import { Quote } from './design-system-components/pages/quote'
-import { SignUp } from './design-system-components/pages/signUp'
-import { Login } from './design-system-components/pages/login'
+import { BaseLayout } from './design-system/layouts/baseLayout'
+import { Home } from './app/home'
+import { Carpentry } from './app/pages/services/carpentry'
+import { Plumbing } from './app/pages/services/plumbing'
+import { Masonry } from './app/pages/services/masonry'
+import { Engineering } from './app/pages/services/engineering'
+import { NotFound } from './app/pages/notFound'
+import { Specials } from './app/pages/specials'
+import { Pricing } from './app/pages/pricing'
+import { FAQs } from './app/pages/faqs'
+import { About } from './app/pages/about'
+import { Quote } from './app/pages/quote'
+import { SignUp } from './app/pages/signUp'
+import { Login } from './app/pages/login'
 
 function App() {
 
   return (
-    <BrowserRouter basename="/trade-locator">
+    <BrowserRouter basename="/trade-locator/">
       <Routes>
         <Route element={<BaseLayout id='base-layout' />}>
           <Route path="/" element={<Home />}>
