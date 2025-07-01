@@ -14,6 +14,7 @@ import { Quote } from './app/pages/quote'
 import { SignUp } from './app/pages/signUp'
 import { Login } from './app/pages/login'
 import { LoggedInLanding } from './app/protectedPages/temp-logged-in'
+import { AccountSettings } from './app/protectedPages/accountsSettings'
 import { AuthProvider, ProtectedRoute } from './app/auth/proctectedRoute'
 
 function App() {
@@ -41,6 +42,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <LoggedInLanding />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="account-settings"
+              element={
+                <ProtectedRoute>
+                  <AccountSettings />
                 </ProtectedRoute>
               }
             />

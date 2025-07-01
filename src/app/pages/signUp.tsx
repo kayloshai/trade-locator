@@ -1,5 +1,9 @@
 import { useState, useRef } from "react";
 import { TextInput } from "../../design-system/inputs/TextInput";
+import { auth, db } from "../../firebase/firebase"; // Adjust the import based on your project structure
+import { createUserWithEmailAndPassword, updateProfile, type User } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
     className?: string;
@@ -25,12 +29,51 @@ export const SignUp = ({ className }: Props) => {
     const [showPassword, setShowPassword] = useState(false);
     const [emailTouched, setEmailTouched] = useState(false);
     const [passwordTouched, setPasswordTouched] = useState(false);
+    const [formError, setFormError] = useState<string | null>(null);
     const usernameRef = useRef<HTMLInputElement>(null);
+    const navigate = useNavigate();
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Handle sign up logic here
-        console.log("Sign Up:", { username, email, password });
+        setFormError(null);
+
+        const passwordsMatch = password === confirmPassword && password.length > 0;
+        const emailValid = isValidEmail(email);
+        const passwordValid = isValidPassword(password);
+
+        if (!passwordsMatch || !emailValid || !passwordValid) {
+            // Handle invalid form
+            if (!emailValid) setEmailTouched(true);
+            if (!passwordValid) setPasswordTouched(true);
+            return;
+        }
+
+        try {
+            // Create user with email and password
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+
+            // Optionally update displayName
+            await updateProfile(user, { displayName: username });
+
+            // Create a Firestore document for the user
+            await setDoc(doc(db, "users", user.uid), {
+                email: user.email,
+                displayName: username,
+                createdAt: new Date(),
+                // Add any other custom fields here
+            });
+
+            // Redirect to logged-in landing page
+            navigate("/logged-in");
+        } catch (error: any) {
+            if (error.code === "auth/email-already-in-use") {
+                setFormError("This email address is already in use. Please use a different email or log in.");
+            } else {
+                setFormError(error.message || "Sign up failed. Please try again.");
+            }
+            console.error(error);
+        }
     };
 
     const handleClear = () => {
@@ -44,10 +87,6 @@ export const SignUp = ({ className }: Props) => {
             usernameRef.current?.focus();
         }, 0);
     };
-
-    const passwordsMatch = password === confirmPassword && password.length > 0;
-    const emailValid = isValidEmail(email);
-    const passwordValid = isValidPassword(password);
 
     return (
         <div
@@ -80,7 +119,7 @@ export const SignUp = ({ className }: Props) => {
                     onChange={e => setEmail(e.target.value)}
                     autoComplete="email"
                 />
-                {emailTouched && !emailValid && (
+                {emailTouched && !isValidEmail(email) && (
                     <div id="email-error" className="text-danger small w-100 text-start" aria-live="polite">
                         Please enter a valid email address.
                     </div>
@@ -94,7 +133,7 @@ export const SignUp = ({ className }: Props) => {
                     onChange={e => setPassword(e.target.value)}
                     autoComplete="new-password"
                 />
-                {passwordTouched && !passwordValid && (
+                {passwordTouched && !isValidPassword(password) && (
                     <div id="password-error" className="text-danger small w-100 text-start" aria-live="polite">
                         Password must be at least 8 characters and contain both a letter and a number.
                     </div>
@@ -108,16 +147,25 @@ export const SignUp = ({ className }: Props) => {
                     onChange={e => setConfirmPassword(e.target.value)}
                     autoComplete="new-password"
                 />
-                {!passwordsMatch && confirmPassword.length > 0 && (
+                {password !== confirmPassword && confirmPassword.length > 0 && (
                     <div className="text-danger small w-100 text-start" aria-live="polite">
                         Passwords do not match
+                    </div>
+                )}
+                {formError && (
+                    <div className="text-danger small w-100 text-center mb-2" aria-live="polite">
+                        {formError}
                     </div>
                 )}
                 <div className="d-flex w-100 gap-2 mt-2">
                     <button
                         className="btn btn-primary flex-grow-1"
                         type="submit"
-                        disabled={!passwordsMatch || !emailValid || !passwordValid}
+                        disabled={
+                            password !== confirmPassword ||
+                            !isValidEmail(email) ||
+                            !isValidPassword(password)
+                        }
                     >
                         Sign Up
                     </button>
