@@ -23,6 +23,8 @@ export const Navbar = ({ }: Props) => {
         navigate("/login");
     };
 
+    const isVerified = user && user.emailVerified;
+
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container">
@@ -39,7 +41,7 @@ export const Navbar = ({ }: Props) => {
                 </button>
                 <div className={`collapse navbar-collapse${menuOpen ? " show" : ""}`} id="main-navbar">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                        {user ? (
+                        {isVerified && user ? (
                             <>
                                 <li className="nav-item">
                                     <Link to="/services" className="nav-link" onClick={handleNavLinkClick}>Services</Link>
@@ -74,7 +76,7 @@ export const Navbar = ({ }: Props) => {
                         )}
                     </ul>
                     <div className="d-flex">
-                        {!user ? (
+                        {!isVerified ? (
                             <>
                                 <Link to="/login" className="btn btn-outline-light me-2" onClick={handleNavLinkClick}>Login</Link>
                                 <Link to="/sign-up" className="btn btn-warning" onClick={handleNavLinkClick}>Sign-Up</Link>

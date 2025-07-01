@@ -40,5 +40,13 @@ export const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ childr
 
     if (loading) return <div>Loading...</div>;
     if (!user) return <Navigate to="/login" state={{ from: location }} replace />;
+    if (!user.emailVerified) {
+        return (
+            <div className="container py-5 text-center">
+                <h2>Please verify your email address</h2>
+                <p>Check your inbox for a verification email before accessing this page.</p>
+            </div>
+        );
+    }
     return <>{children}</>;
 };

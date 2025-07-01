@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { TextInput } from "../../design-system/inputs/TextInput";
 import { auth, db } from "../../firebase/firebase"; // Adjust the import based on your project structure
-import { createUserWithEmailAndPassword, updateProfile, type User } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification, type User } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
@@ -56,6 +56,12 @@ export const SignUp = ({ className }: Props) => {
             // Optionally update displayName
             await updateProfile(user, { displayName: username });
 
+            // Send email verification
+            await sendEmailVerification(user);
+
+            // Optionally, show a message to the user:
+            alert("A verification email has been sent to your email address. Please verify your email before logging in.");
+
             // Create a Firestore document for the user
             await setDoc(doc(db, "users", user.uid), {
                 email: user.email,
@@ -65,7 +71,7 @@ export const SignUp = ({ className }: Props) => {
             });
 
             // Redirect to logged-in landing page
-            navigate("/logged-in");
+            navigate("/login");
         } catch (error: any) {
             if (error.code === "auth/email-already-in-use") {
                 setFormError("This email address is already in use. Please use a different email or log in.");

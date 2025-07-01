@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { TextInput } from "../../design-system/inputs/TextInput";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/firebase"; // Adjust path if needed
+import { sendEmailVerification } from "firebase/auth";
 
 interface Props {
     className?: string;
@@ -51,6 +52,15 @@ export const Login = ({
         setLoading(true);
         try {
             const userCredential = await signInWithEmailAndPassword(auth, value1, value2);
+            const user = userCredential.user;
+            await user.reload(); // <-- Add this line
+            // Check if the email is verified
+            if (!user.emailVerified) {
+                await sendEmailVerification(user);
+                setError("Please verify your email address. We've sent you a new verification email.");
+                return;
+            }
+
             //console.log("Login successful:", userCredential.user);
             if (onSubmit) onSubmit(value1, value2);
             // Navigate to landing page after successful login
