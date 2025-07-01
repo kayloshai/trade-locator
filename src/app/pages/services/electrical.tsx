@@ -16,7 +16,7 @@ export const Electrical = ({ className }: Props) => {
                         <strong>Emergency Electrical Help</strong><br />
                         Power outage? Exposed wires? Electrical fire risk?<br />
                         <Link
-                            to="/emergency"
+                            to="/services"
                             className="btn btn-danger mt-2"
                             state={{ fromPage: location.pathname }}
                         >

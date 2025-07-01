@@ -16,7 +16,7 @@ export const Masonry = ({ className }: Props) => {
                         <strong>Emergency Masonry Help</strong><br />
                         Structural crack? Wall collapse? <br />
                         <Link
-                            to="/emergency"
+                            to="/services"
                             className="btn btn-danger mt-2"
                             state={{ fromPage: location.pathname }}
                         >

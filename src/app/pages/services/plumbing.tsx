@@ -16,7 +16,7 @@ export const Plumbing = ({ className }: Props) => {
                         <strong>Emergency Plumbing Help</strong><br />
                         Burst pipe? Major leak? <br />
                         <Link
-                            to="/emergency"
+                            to="/services"
                             className="btn btn-danger mt-2"
                             state={{ fromPage: location.pathname }}
                         >

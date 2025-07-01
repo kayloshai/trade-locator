@@ -13,12 +13,11 @@ import { About } from './app/pages/about'
 import { Quote } from './app/pages/quote'
 import { SignUp } from './app/pages/signUp'
 import { Login } from './app/pages/login'
-import { LoggedInLanding } from './app/protectedPages/temp-logged-in'
 import { AccountSettings } from './app/protectedPages/accountsSettings'
 import { AuthProvider, ProtectedRoute } from './app/auth/proctectedRoute'
 import { Electrical } from './app/pages/services/electrical'
 import { Garden } from './app/pages/services/garden'
-import { Emergency } from './app/pages/services/emergency'
+import { Services } from './app/pages/services/services'
 
 function App() {
   return (
@@ -30,7 +29,7 @@ function App() {
             <Route path="/carpentry" element={<ProtectedRoute><Carpentry /></ProtectedRoute>} />
             <Route path="/engineering" element={<ProtectedRoute><Engineering /></ProtectedRoute>} />
             <Route path="/electrical" element={<ProtectedRoute><Electrical /></ProtectedRoute>} />
-            <Route path="/emergency" element={<ProtectedRoute><Emergency /></ProtectedRoute>} />
+            <Route path="/services" element={<ProtectedRoute><Services /></ProtectedRoute>} />
             <Route path="/garden" element={<ProtectedRoute><Garden /></ProtectedRoute>} />
             <Route path="/masonry" element={<ProtectedRoute><Masonry /></ProtectedRoute>} />
             <Route path="/plumbing" element={<Plumbing />} />

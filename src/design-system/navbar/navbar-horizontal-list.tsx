@@ -42,6 +42,9 @@ export const Navbar = ({ }: Props) => {
                         {user ? (
                             <>
                                 <li className="nav-item">
+                                    <Link to="/services" className="nav-link" onClick={handleNavLinkClick}>Services</Link>
+                                </li>
+                                <li className="nav-item">
                                     <Link to="/carpentry" className="nav-link" onClick={handleNavLinkClick}>Carpentry</Link>
                                 </li>
                                 <li className="nav-item">

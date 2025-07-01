@@ -16,7 +16,7 @@ export const Garden = ({ className }: Props) => {
                         <strong>Need Urgent Garden Help?</strong><br />
                         Storm damage? Fallen tree? Broken irrigation?<br />
                         <Link
-                            to="/emergency"
+                            to="/services"
                             className="btn btn-danger mt-2"
                             state={{ fromPage: location.pathname }}
                         >
