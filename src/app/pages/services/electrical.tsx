@@ -15,7 +15,13 @@ export const Electrical = ({ className }: Props) => {
                     <div className="alert alert-danger text-center" role="alert">
                         <strong>Emergency Electrical Help</strong><br />
                         Power outage? Exposed wires? Electrical fire risk?<br />
-                        <button className="btn btn-danger mt-2">Request Emergency Electrician</button>
+                        <Link
+                            to="/emergency"
+                            className="btn btn-danger mt-2"
+                            state={{ fromPage: location.pathname }}
+                        >
+                            Request Emergency Electrician
+                        </Link>
                         <div className="mt-2 small text-muted">Available 24/7 for urgent electrical issues</div>
                     </div>
                 </div>

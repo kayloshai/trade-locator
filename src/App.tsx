@@ -27,12 +27,12 @@ function App() {
         <Routes>
           <Route element={<BaseLayout id='base-layout' />}>
             <Route path="/" element={<Home />} />
-            <Route path="/carpentry" element={<Carpentry />} />
-            <Route path="/engineering" element={<Engineering />} />
-            <Route path="/electrical" element={<Electrical />} />
-            <Route path="/emergency" element={<Emergency />} />
-            <Route path="/garden" element={<Garden />} />
-            <Route path="/masonry" element={<Masonry />} />
+            <Route path="/carpentry" element={<ProtectedRoute><Carpentry /></ProtectedRoute>} />
+            <Route path="/engineering" element={<ProtectedRoute><Engineering /></ProtectedRoute>} />
+            <Route path="/electrical" element={<ProtectedRoute><Electrical /></ProtectedRoute>} />
+            <Route path="/emergency" element={<ProtectedRoute><Emergency /></ProtectedRoute>} />
+            <Route path="/garden" element={<ProtectedRoute><Garden /></ProtectedRoute>} />
+            <Route path="/masonry" element={<ProtectedRoute><Masonry /></ProtectedRoute>} />
             <Route path="/plumbing" element={<Plumbing />} />
             <Route path="/specials" element={<Specials />} />
             <Route path="/pricing" element={<Pricing />} />

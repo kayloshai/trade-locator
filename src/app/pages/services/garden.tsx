@@ -15,7 +15,13 @@ export const Garden = ({ className }: Props) => {
                     <div className="alert alert-success text-center" role="alert">
                         <strong>Need Urgent Garden Help?</strong><br />
                         Storm damage? Fallen tree? Broken irrigation?<br />
-                        <button className="btn btn-success mt-2">Request Emergency Gardener</button>
+                        <Link
+                            to="/emergency"
+                            className="btn btn-danger mt-2"
+                            state={{ fromPage: location.pathname }}
+                        >
+                            Request Emergency Gardener
+                        </Link>
                         <div className="mt-2 small text-muted">Available 7 days a week for urgent garden issues</div>
                     </div>
                 </div>
