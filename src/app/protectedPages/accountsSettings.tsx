@@ -3,6 +3,7 @@ import { useAuth } from "../auth/proctectedRoute";
 import { db } from "../../firebase/firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { TextInput } from "../../design-system/inputs/TextInput";
+import { useNavigate } from "react-router-dom";
 
 export const AccountSettings = () => {
     const { user } = useAuth();
@@ -10,6 +11,7 @@ export const AccountSettings = () => {
     const [loading, setLoading] = useState(true);
     const [success, setSuccess] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (user) {
@@ -37,6 +39,9 @@ export const AccountSettings = () => {
         try {
             await updateDoc(doc(db, "users", user.uid), { displayName });
             setSuccess("Profile updated!");
+            setTimeout(() => {
+                navigate("/");
+            }, 1200); // Show success for 1.2s before redirecting
         } catch (err) {
             setError("Failed to update profile.");
         }
