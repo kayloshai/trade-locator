@@ -42,13 +42,16 @@ export const Navbar = ({ }: Props) => {
                         {user ? (
                             <>
                                 <li className="nav-item">
-                                    <span className="nav-link disabled">Placeholder 1</span>
+                                    <Link to="/plumbing" className="nav-link" onClick={handleNavLinkClick}>Plumbing</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <span className="nav-link disabled">Placeholder 2</span>
+                                    <Link to="/carpentry" className="nav-link" onClick={handleNavLinkClick}>Carpentry</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <span className="nav-link disabled">Placeholder 3</span>
+                                    <Link to="/masonry" className="nav-link" onClick={handleNavLinkClick}>Masonry</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link to="/engineering" className="nav-link" onClick={handleNavLinkClick}>Engineering</Link>
                                 </li>
                             </>
                         ) : (

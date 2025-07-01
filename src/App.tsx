@@ -23,25 +23,24 @@ function App() {
       <BrowserRouter basename="/trade-locator/">
         <Routes>
           <Route element={<BaseLayout id='base-layout' />}>
-            <Route path="/" element={<Home />}>
-              <Route path="plumbing" element={<Plumbing />} />
-              <Route path="carpentry" element={<Carpentry />} />
-              <Route path="masonry" element={<Masonry />} />
-              <Route path="engineering" element={<Engineering />} />
-            </Route>
-            <Route path="specials" element={<Specials />} />
-            <Route path="pricing" element={<Pricing />} />
-            <Route path="faqs" element={<FAQs />} />
-            <Route path="about" element={<About />} />
-            <Route path="quote" element={<Quote />} />
-            <Route path="login" element={<Login />} />
-            <Route path="sign-up" element={<SignUp />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/plumbing" element={<Plumbing />} />
+            <Route path="/carpentry" element={<Carpentry />} />
+            <Route path="/masonry" element={<Masonry />} />
+            <Route path="/engineering" element={<Engineering />} />
+            <Route path="/specials" element={<Specials />} />
+            <Route path="/pricing" element={<Pricing />} />
+            <Route path="/faqs" element={<FAQs />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/quote" element={<Quote />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/sign-up" element={<SignUp />} />
             {/* Authenticated routes */}
             <Route
-              path="logged-in"
+              path="/"
               element={
                 <ProtectedRoute>
-                  <LoggedInLanding />
+                  <Home />
                 </ProtectedRoute>
               }
             />

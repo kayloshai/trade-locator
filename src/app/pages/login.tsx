@@ -54,7 +54,7 @@ export const Login = ({
             //console.log("Login successful:", userCredential.user);
             if (onSubmit) onSubmit(value1, value2);
             // Navigate to landing page after successful login
-            navigate("/logged-in", { state: { userEmail: userCredential.user.email } });
+            navigate("/", { state: { userEmail: userCredential.user.email } });
         } catch (err: any) {
             setError(err.message || "Login failed");
             console.log("Login failed:", err);
