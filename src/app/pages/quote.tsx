@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { TextInput } from "../../design-system/inputs/TextInput"; // Add this import
 
 interface Props {
     className?: string;
@@ -41,12 +42,28 @@ export const Quote = ({ className }: Props) => {
             {/* Placeholder form - replace with real form when ready */}
             <form className="mx-auto" style={{ maxWidth: 400 }}>
                 <div className="mb-3">
-                    <label htmlFor="name" className="form-label">Your Name</label>
-                    <input type="text" className="form-control" id="name" placeholder="Enter your name" disabled />
+                    <TextInput
+                        id="name"
+                        label="Your Name"
+                        type="text"
+                        placeholder="Enter your name"
+                        value=""
+                        onChange={() => { }}
+                        autoComplete="name"
+                        disabled
+                    />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="email" className="form-label">Email address</label>
-                    <input type="email" className="form-control" id="email" placeholder="Enter your email" disabled />
+                    <TextInput
+                        id="email"
+                        label="Email address"
+                        type="email"
+                        placeholder="Enter your email"
+                        value=""
+                        onChange={() => { }}
+                        autoComplete="email"
+                        disabled
+                    />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="details" className="form-label">Project Details</label>

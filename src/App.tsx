@@ -13,30 +13,42 @@ import { About } from './app/pages/about'
 import { Quote } from './app/pages/quote'
 import { SignUp } from './app/pages/signUp'
 import { Login } from './app/pages/login'
+import { LoggedInLanding } from './app/protectedPages/temp-logged-in'
+import { AuthProvider, ProtectedRoute } from './app/auth/proctectedRoute'
 
 function App() {
-
   return (
-    <BrowserRouter basename="/trade-locator/">
-      <Routes>
-        <Route element={<BaseLayout id='base-layout' />}>
-          <Route path="/" element={<Home />}>
-            <Route path="plumbing" element={<Plumbing />} />
-            <Route path="carpentry" element={<Carpentry />} />
-            <Route path="masonry" element={<Masonry />} />
-            <Route path="engineering" element={<Engineering />} />
+    <AuthProvider>
+      <BrowserRouter basename="/trade-locator/">
+        <Routes>
+          <Route element={<BaseLayout id='base-layout' />}>
+            <Route path="/" element={<Home />}>
+              <Route path="plumbing" element={<Plumbing />} />
+              <Route path="carpentry" element={<Carpentry />} />
+              <Route path="masonry" element={<Masonry />} />
+              <Route path="engineering" element={<Engineering />} />
+            </Route>
+            <Route path="specials" element={<Specials />} />
+            <Route path="pricing" element={<Pricing />} />
+            <Route path="faqs" element={<FAQs />} />
+            <Route path="about" element={<About />} />
+            <Route path="quote" element={<Quote />} />
+            <Route path="login" element={<Login />} />
+            <Route path="sign-up" element={<SignUp />} />
+            {/* Authenticated routes */}
+            <Route
+              path="logged-in"
+              element={
+                <ProtectedRoute>
+                  <LoggedInLanding />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="*" element={<NotFound />} />
           </Route>
-          <Route path="specials" element={<Specials />} />
-          <Route path="pricing" element={<Pricing />} />
-          <Route path="faqs" element={<FAQs />} />
-          <Route path="about" element={<About />} />
-          <Route path="quote" element={<Quote />} />
-          <Route path="login" element={<Login />} />
-          <Route path="sign-up" element={<SignUp />} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   )
 }
 
