@@ -8,7 +8,7 @@ interface Props { }
 
 export const Navbar = ({ }: Props) => {
     const [menuOpen, setMenuOpen] = useState(false);
-    const { user } = useAuth();
+    const { user, loading } = useAuth();
     const navigate = useNavigate();
 
     // Helper to close menu on mobile
@@ -24,6 +24,11 @@ export const Navbar = ({ }: Props) => {
     };
 
     const isVerified = user && user.emailVerified;
+
+    if (loading) {
+        // Optionally, show a spinner or nothing while auth is loading
+        return null;
+    }
 
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">

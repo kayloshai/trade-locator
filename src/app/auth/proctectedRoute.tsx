@@ -1,9 +1,9 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import type { User } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
 import { Navigate, useLocation } from "react-router-dom";
 
+
+import type { User } from "firebase/auth";
 
 interface AuthContextType {
     user: User | null;
@@ -12,15 +12,18 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType>({ user: null, loading: true });
 
-export const useAuth = () => useContext(AuthContext);
-
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [user, setUser] = useState<User | null>(null);
+    const [user, setUser] = useState<User | null>(auth.currentUser);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
-            setUser(firebaseUser);
+        const unsubscribe = auth.onAuthStateChanged(async (firebaseUser) => {
+            if (firebaseUser) {
+                await firebaseUser.reload();
+                setUser(auth.currentUser);
+            } else {
+                setUser(null);
+            }
             setLoading(false);
         });
         return unsubscribe;
@@ -50,3 +53,6 @@ export const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ childr
     }
     return <>{children}</>;
 };
+export function useAuth(): { user: User | null; loading: boolean } {
+    return useContext(AuthContext);
+}
