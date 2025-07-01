@@ -42,16 +42,22 @@ export const Navbar = ({ }: Props) => {
                         {user ? (
                             <>
                                 <li className="nav-item">
-                                    <Link to="/plumbing" className="nav-link" onClick={handleNavLinkClick}>Plumbing</Link>
+                                    <Link to="/carpentry" className="nav-link" onClick={handleNavLinkClick}>Carpentry</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to="/carpentry" className="nav-link" onClick={handleNavLinkClick}>Carpentry</Link>
+                                    <Link to="/electrical" className="nav-link" onClick={handleNavLinkClick}>Electrical</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link to="/engineering" className="nav-link" onClick={handleNavLinkClick}>Engineering</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link to="/garden" className="nav-link" onClick={handleNavLinkClick}>Garden</Link>
                                 </li>
                                 <li className="nav-item">
                                     <Link to="/masonry" className="nav-link" onClick={handleNavLinkClick}>Masonry</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to="/engineering" className="nav-link" onClick={handleNavLinkClick}>Engineering</Link>
+                                    <Link to="/plumbing" className="nav-link" onClick={handleNavLinkClick}>Plumbing</Link>
                                 </li>
                             </>
                         ) : (

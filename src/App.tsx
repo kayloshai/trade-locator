@@ -16,6 +16,9 @@ import { Login } from './app/pages/login'
 import { LoggedInLanding } from './app/protectedPages/temp-logged-in'
 import { AccountSettings } from './app/protectedPages/accountsSettings'
 import { AuthProvider, ProtectedRoute } from './app/auth/proctectedRoute'
+import { Electrical } from './app/pages/services/electrical'
+import { Garden } from './app/pages/services/garden'
+import { Emergency } from './app/pages/services/emergency'
 
 function App() {
   return (
@@ -24,10 +27,13 @@ function App() {
         <Routes>
           <Route element={<BaseLayout id='base-layout' />}>
             <Route path="/" element={<Home />} />
-            <Route path="/plumbing" element={<Plumbing />} />
             <Route path="/carpentry" element={<Carpentry />} />
-            <Route path="/masonry" element={<Masonry />} />
             <Route path="/engineering" element={<Engineering />} />
+            <Route path="/electrical" element={<Electrical />} />
+            <Route path="/emergency" element={<Emergency />} />
+            <Route path="/garden" element={<Garden />} />
+            <Route path="/masonry" element={<Masonry />} />
+            <Route path="/plumbing" element={<Plumbing />} />
             <Route path="/specials" element={<Specials />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/faqs" element={<FAQs />} />

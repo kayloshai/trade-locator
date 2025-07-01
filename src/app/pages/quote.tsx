@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
-import { TextInput } from "../../design-system/inputs/TextInput"; // Add this import
+import { useLocation } from "react-router-dom";
+import { TextInput } from "../../design-system/inputs/TextInput";
 
 interface Props {
     className?: string;
@@ -8,9 +9,19 @@ interface Props {
 export const Quote = ({ className }: Props) => {
     const [fileName, setFileName] = useState<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const location = useLocation();
 
     const allowedTypes = ['application/pdf', 'image/png', 'image/jpeg', 'image/gif', 'image/webp'];
     const MAX_SIZE = 5 * 1024 * 1024; // 5MB
+
+    // Get the previous page path (e.g., /plumbing, /carpentry, etc.)
+    const fromPage = location.state?.fromPage || document.referrer || location.pathname;
+
+    const [details, setDetails] = useState(
+        fromPage && fromPage !== "/quote"
+            ? `[From: ${fromPage}] `
+            : ""
+    );
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -67,7 +78,15 @@ export const Quote = ({ className }: Props) => {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="details" className="form-label">Project Details</label>
-                    <textarea className="form-control" id="details" rows={3} placeholder="Describe your project" disabled />
+                    <textarea
+                        className="form-control"
+                        id="details"
+                        rows={3}
+                        placeholder="Describe your project"
+                        value={details}
+                        onChange={e => setDetails(e.target.value)}
+                        disabled
+                    />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="file" className="form-label">Attach PDF or Image</label>
