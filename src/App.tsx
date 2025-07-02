@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { BaseLayout } from './design-system/layouts/baseLayout'
-import { Home } from './app/home'
+import { Home } from './app/pages/home'
 import { Carpentry } from './app/pages/services/carpentry'
 import { Plumbing } from './app/pages/services/plumbing'
 import { Masonry } from './app/pages/services/masonry'
@@ -18,49 +18,52 @@ import { AuthProvider, ProtectedRoute } from './app/auth/proctectedRoute'
 import { Electrical } from './app/pages/services/electrical'
 import { Garden } from './app/pages/services/garden'
 import { Services } from './app/pages/services/services'
+import { LocationProvider } from "./app/context/LocationContext";
 
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter basename="/trade-locator/">
-        <Routes>
-          <Route element={<BaseLayout id='base-layout' />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/carpentry" element={<ProtectedRoute><Carpentry /></ProtectedRoute>} />
-            <Route path="/engineering" element={<ProtectedRoute><Engineering /></ProtectedRoute>} />
-            <Route path="/electrical" element={<ProtectedRoute><Electrical /></ProtectedRoute>} />
-            <Route path="/services" element={<ProtectedRoute><Services /></ProtectedRoute>} />
-            <Route path="/garden" element={<ProtectedRoute><Garden /></ProtectedRoute>} />
-            <Route path="/masonry" element={<ProtectedRoute><Masonry /></ProtectedRoute>} />
-            <Route path="/plumbing" element={<Plumbing />} />
-            <Route path="/specials" element={<Specials />} />
-            <Route path="/pricing" element={<Pricing />} />
-            <Route path="/faqs" element={<FAQs />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/quote" element={<Quote />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/sign-up" element={<SignUp />} />
-            {/* Authenticated routes */}
-            <Route
-              path="/"
-              element={
-                <ProtectedRoute>
-                  <Home />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="account-settings"
-              element={
-                <ProtectedRoute>
-                  <AccountSettings />
-                </ProtectedRoute>
-              }
-            />
-            <Route path="*" element={<NotFound />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <LocationProvider>
+        <BrowserRouter basename="/trade-locator/">
+          <Routes>
+            <Route element={<BaseLayout id='base-layout' />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/carpentry" element={<ProtectedRoute><Carpentry /></ProtectedRoute>} />
+              <Route path="/engineering" element={<ProtectedRoute><Engineering /></ProtectedRoute>} />
+              <Route path="/electrical" element={<ProtectedRoute><Electrical /></ProtectedRoute>} />
+              <Route path="/services" element={<ProtectedRoute><Services /></ProtectedRoute>} />
+              <Route path="/garden" element={<ProtectedRoute><Garden /></ProtectedRoute>} />
+              <Route path="/masonry" element={<ProtectedRoute><Masonry /></ProtectedRoute>} />
+              <Route path="/plumbing" element={<Plumbing />} />
+              <Route path="/specials" element={<Specials />} />
+              <Route path="/pricing" element={<Pricing />} />
+              <Route path="/faqs" element={<FAQs />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/quote" element={<Quote />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/sign-up" element={<SignUp />} />
+              {/* Authenticated routes */}
+              <Route
+                path="/"
+                element={
+                  <ProtectedRoute>
+                    <Home />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="account-settings"
+                element={
+                  <ProtectedRoute>
+                    <AccountSettings />
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="*" element={<NotFound />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </LocationProvider>
     </AuthProvider>
   )
 }

@@ -64,6 +64,7 @@ export const Login = ({
             }
             if (onSubmit) onSubmit(value1, value2);
             navigate("/", { state: { userEmail: userCredential.user.email } });
+            console.log("Login successful:", user);
         } catch (err: any) {
             setError(err.message || "Login failed");
             console.log("Login failed:", err);
@@ -83,11 +84,15 @@ export const Login = ({
         setLoading(true);
         try {
             await sendPasswordResetEmail(auth, resetEmail);
-            //console.log("Password reset email sent to:", resetEmail);
             setResetSent("A password reset email has been sent. Please check your inbox.");
+            setTimeout(() => {
+                setShowReset(false);
+                setResetSent(null);
+                setError(null);
+                setResetEmail("");
+            }, 2000); // Show message for 2 seconds, then return to login
         } catch (err: any) {
             setError(err.message || "Failed to send password reset email.");
-            //console.error("Password reset error:", err);
         } finally {
             setLoading(false);
         }
