@@ -63,6 +63,7 @@ export const Login = ({
                 return;
             }
             if (onSubmit) onSubmit(value1, value2);
+            localStorage.setItem("loginTimestamp", Date.now().toString()); // <-- Add this line
             navigate("/", { state: { userEmail: userCredential.user.email } });
             console.log("Login successful:", user);
         } catch (err: any) {

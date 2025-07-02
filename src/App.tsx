@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { BaseLayout } from './design-system/layouts/baseLayout'
 import { Home } from './app/pages/home'
 import { Carpentry } from './app/pages/services/carpentry'
@@ -19,8 +19,22 @@ import { Electrical } from './app/pages/services/electrical'
 import { Garden } from './app/pages/services/garden'
 import { Services } from './app/pages/services/services'
 import { LocationProvider } from "./app/context/LocationContext";
+import { useEffect } from "react";
+import { auth } from "./firebase/firebase";
+
+const SESSION_DURATION_MS = 2 * 60 * 60 * 1000; // 2 hours
 
 function App() {
+  useEffect(() => {
+    const loginTimestamp = Number(localStorage.getItem("loginTimestamp"));
+    if (loginTimestamp && Date.now() - loginTimestamp > SESSION_DURATION_MS) {
+      auth.signOut();
+      localStorage.removeItem("loginTimestamp");
+      // Optionally, redirect to login page here
+      <Navigate to="/login" />
+    }
+  }, []);
+
   return (
     <AuthProvider>
       <LocationProvider>
