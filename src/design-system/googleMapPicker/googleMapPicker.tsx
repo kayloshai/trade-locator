@@ -8,7 +8,7 @@ const center = { lat: -33.8688, lng: 151.2093 }; // Default to Sydney
 
 export default function GoogleMapPicker({ onLocationSelect }: { onLocationSelect: (lat: number, lng: number) => void }) {
     const { isLoaded } = useJsApiLoader({
-        googleMapsApiKey: "AIzaSyA-cPnLjStijFJ6ZOa7ofrINJrHCgCvlrs",
+        googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY as string,
     });
 
     const [marker, setMarker] = useState<{ lat: number; lng: number } | null>(null);
