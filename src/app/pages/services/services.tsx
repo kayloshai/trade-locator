@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useLocationContext } from "../../context/LocationContext";
-import { getDistanceFromLatLonInKm, estimateEtaMinutes } from "../../functions/functions";
+import { getDistanceFromLatLonInKm, estimateEtaMinutes, getDrivingDistance } from "../../functions/functions";
+import { useJsApiLoader } from "@react-google-maps/api";
 
 interface Services {
     id: string;
@@ -250,6 +251,13 @@ export const Services = ({ className }: { className?: string }) => {
     const { location: userLocation } = useLocationContext();
     const [view, setView] = useState<"grid" | "list">("grid");
     const [search, setSearch] = useState("");
+    const [liveData, setLiveData] = useState<Record<number, { eta: string; distance: string }>>({});
+
+    // Load Google Maps JS API before using getDrivingDistance
+    const { isLoaded } = useJsApiLoader({
+        googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY as string,
+        libraries: ["places"],
+    });
 
     const fromPage = location.state?.fromPage as string | undefined;
     const pathToId: Record<string, string> = {
@@ -270,8 +278,8 @@ export const Services = ({ className }: { className?: string }) => {
         service.name.toLowerCase().includes(search.trim().toLowerCase())
     );
 
-    // Calculate distance and ETA for each service
-    const servicesWithDistance = filteredServices.map(service => {
+    // Calculate distance and ETA for each service (sync fallback)
+    const servicesWithDistance = filteredServices.map((service, idx) => {
         if (!userLocation || !service.location) return { ...service, distance: null, etaMins: null };
         const distance = getDistanceFromLatLonInKm(
             userLocation.lat,
@@ -282,6 +290,41 @@ export const Services = ({ className }: { className?: string }) => {
         const etaMins = estimateEtaMinutes(distance);
         return { ...service, distance, etaMins };
     });
+
+    // Fetch live ETA/distance for visible services
+    useEffect(() => {
+        if (!userLocation || !isLoaded) return;
+        filteredServices.forEach((service, idx) => {
+            if (
+                !service.available ||
+                !service.location ||
+                liveData[idx] // already fetched
+            ) {
+                return;
+            }
+            getDrivingDistance(
+                userLocation.lat,
+                userLocation.lng,
+                service.location.lastKnownLocation.lat,
+                service.location.lastKnownLocation.lon
+            )
+                .then(result => {
+                    setLiveData(prev => ({
+                        ...prev,
+                        [idx]: {
+                            eta: result.durationText,
+                            distance: result.distanceText,
+                        }
+                    }));
+                })
+                .catch(() => {
+                    // fallback: do nothing, will use static estimate
+                });
+        });
+        // eslint-disable-next-line
+    }, [userLocation, filteredServices, isLoaded]);
+
+    if (!isLoaded) return <div>Loading map data...</div>;
 
     return (
         <div className={`container py-5 ${className || ""}`} id="emergency-page">
@@ -358,15 +401,22 @@ export const Services = ({ className }: { className?: string }) => {
                                         )}
                                     </div>
                                     <div className="d-flex justify-content-between align-items-center mb-2">
-                                        {service.available && service.etaMins !== null && (
-                                            <span className="badge bg-success">
-                                                ETA: {formatEta(service.etaMins)}
-                                            </span>
-                                        )}
-                                        {service.available && service.distance !== null && (
-                                            <span className="badge bg-info text-dark ms-2">
-                                                {service.distance.toFixed(1)} km
-                                            </span>
+                                        {service.available && (
+                                            <>
+                                                <span className="badge bg-success">
+                                                    ETA: {liveData[idx]?.eta || (service.etaMins !== null ? formatEta(service.etaMins) : service.eta)}
+                                                </span>
+                                                {liveData[idx]?.distance && (
+                                                    <span className="badge bg-info text-dark ms-2">
+                                                        {liveData[idx].distance}
+                                                    </span>
+                                                )}
+                                                {!liveData[idx]?.distance && service.distance !== null && (
+                                                    <span className="badge bg-info text-dark ms-2">
+                                                        {service.distance.toFixed(1)} km
+                                                    </span>
+                                                )}
+                                            </>
                                         )}
                                     </div>
                                     <button
@@ -402,17 +452,22 @@ export const Services = ({ className }: { className?: string }) => {
                                         </span>
                                     )}
                                     <div>
-                                        <span className={`badge ${service.available ? "bg-success" : "bg-secondary"} ms-1`}>
-                                            {service.available
-                                                ? service.etaMins !== null
-                                                    ? `ETA: ${formatEta(service.etaMins)}`
-                                                    : `ETA: ${service.eta}`
-                                                : "Unavailable"}
-                                        </span>
-                                        {service.distance !== null && (
-                                            <span className="badge bg-info text-dark ms-2">
-                                                {service.distance.toFixed(1)} km
-                                            </span>
+                                        {service.available && (
+                                            <>
+                                                <span className="badge bg-success ms-1">
+                                                    ETA: {liveData[idx]?.eta || (service.etaMins !== null ? formatEta(service.etaMins) : service.eta)}
+                                                </span>
+                                                {liveData[idx]?.distance && (
+                                                    <span className="badge bg-info text-dark ms-2">
+                                                        {liveData[idx].distance}
+                                                    </span>
+                                                )}
+                                                {!liveData[idx]?.distance && service.distance !== null && (
+                                                    <span className="badge bg-info text-dark ms-2">
+                                                        {service.distance.toFixed(1)} km
+                                                    </span>
+                                                )}
+                                            </>
                                         )}
                                     </div>
                                 </div>

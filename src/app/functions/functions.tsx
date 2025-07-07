@@ -62,7 +62,7 @@ function getDrivingDistance(
 }
 
 // Estimate ETA in minutes given distance in km and average speed (km/h)
-function estimateEtaMinutes(distanceKm: number, speedKmh = 40): number {
+function estimateEtaMinutes(distanceKm: number, speedKmh = 60): number {
     if (!distanceKm || distanceKm <= 0) return 0;
     return Math.round((distanceKm / speedKmh) * 60);
 }
