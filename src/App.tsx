@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate, useNavigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { BaseLayout } from './design-system/layouts/baseLayout'
 import { Home } from './app/pages/home'
 import { Carpentry } from './app/pages/services/carpentry'
@@ -19,23 +19,10 @@ import { Electrical } from './app/pages/services/electrical'
 import { Garden } from './app/pages/services/garden'
 import { Services } from './app/pages/services/services'
 import { LocationProvider } from "./app/context/LocationContext";
-import { useEffect } from "react";
-import { auth } from "./firebase/firebase";
-
-const SESSION_DURATION_MS = 2 * 60 * 60 * 1000; // 2 hours
+import { Contact } from './app/pages/services/contact'
+import { Request } from './app/pages/request'
 
 function App() {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const loginTimestamp = Number(localStorage.getItem("loginTimestamp"));
-    if (loginTimestamp && Date.now() - loginTimestamp > SESSION_DURATION_MS) {
-      auth.signOut();
-      localStorage.removeItem("loginTimestamp");
-      navigate("/login"); // <-- This actually redirects
-    }
-  }, [navigate]);
-
   return (
     <AuthProvider>
       <LocationProvider>
@@ -44,12 +31,14 @@ function App() {
             <Route element={<BaseLayout id='base-layout' />}>
               <Route path="/" element={<Home />} />
               <Route path="/carpentry" element={<ProtectedRoute><Carpentry /></ProtectedRoute>} />
+              <Route path="/contact" element={<Contact />} />
               <Route path="/engineering" element={<ProtectedRoute><Engineering /></ProtectedRoute>} />
               <Route path="/electrical" element={<ProtectedRoute><Electrical /></ProtectedRoute>} />
               <Route path="/services" element={<ProtectedRoute><Services /></ProtectedRoute>} />
               <Route path="/garden" element={<ProtectedRoute><Garden /></ProtectedRoute>} />
               <Route path="/masonry" element={<ProtectedRoute><Masonry /></ProtectedRoute>} />
-              <Route path="/plumbing" element={<Plumbing />} />
+              <Route path="/plumbing" element={<ProtectedRoute><Plumbing /></ProtectedRoute>} />
+              <Route path="/request" element={<ProtectedRoute><Request /></ProtectedRoute>} />
               <Route path="/specials" element={<Specials />} />
               <Route path="/pricing" element={<Pricing />} />
               <Route path="/faqs" element={<FAQs />} />

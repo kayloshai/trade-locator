@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useLocationContext } from "../../context/LocationContext";
 import { getDistanceFromLatLonInKm, estimateEtaMinutes, getDrivingDistance } from "../../functions/functions";
 import { useJsApiLoader } from "@react-google-maps/api";
+import type { Libraries } from "@react-google-maps/api";
+import { GOOGLE_MAP_LIBRARIES } from "../../../constants/googleMaps";
 
 interface Services {
     id: string;
@@ -31,12 +33,10 @@ const cityLocations = [
     { name: "Bloemfontein", lat: -29.0852, lon: 26.1596 }
 ];
 
-// Helper to pick a random city location
 function randomCity() {
     return cityLocations[Math.floor(Math.random() * cityLocations.length)];
 }
 
-// Helper to add a small random offset to lat/lon
 function randomNearby(base: { lat: number; lon: number }) {
     return {
         lat: base.lat + (Math.random() - 0.5) * 0.1,
@@ -246,17 +246,20 @@ function formatEta(minutes: number) {
     return hrs > 0 ? `${hrs}h ${mins}m` : `${mins}m`;
 }
 
+const libraries: Libraries = ['places', 'geometry'];
+
 export const Services = ({ className }: { className?: string }) => {
     const location = useLocation();
     const { location: userLocation } = useLocationContext();
     const [view, setView] = useState<"grid" | "list">("grid");
     const [search, setSearch] = useState("");
     const [liveData, setLiveData] = useState<Record<number, { eta: string; distance: string }>>({});
+    const navigate = useNavigate();
 
     // Load Google Maps JS API before using getDrivingDistance
     const { isLoaded } = useJsApiLoader({
-        googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY as string,
-        libraries: ["places"],
+        googleMapsApiKey: 'AIzaSyClcLbYrCkn28qS0v-ZgY15cwGESoGt4gw',
+        libraries: libraries,
     });
 
     const fromPage = location.state?.fromPage as string | undefined;
@@ -332,7 +335,6 @@ export const Services = ({ className }: { className?: string }) => {
             <div className="mb-4">
                 <div className="d-flex flex-column flex-md-row align-items-center justify-content-between mb-2">
                     <div className="d-flex align-items-center flex-grow-1" style={{ minWidth: 0 }}>
-                        {/* Search Bar */}
                         <input
                             type="text"
                             className="form-control"
@@ -341,7 +343,6 @@ export const Services = ({ className }: { className?: string }) => {
                             value={search}
                             onChange={e => setSearch(e.target.value)}
                         />
-                        {/* Optional: Add a small gap between search and label */}
                         {filterId && <span style={{ width: 16 }} />}
                         {filterId && (
                             <span className="ms-0 ms-md-3 alert alert-info mb-0 py-1 px-2">
@@ -357,6 +358,7 @@ export const Services = ({ className }: { className?: string }) => {
                             aria-label="Grid View"
                             style={{ display: "inline-flex", alignItems: "center", justifyContent: "center" }}
                         >
+                            {/* grid icon */}
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-grid" viewBox="0 0 16 16">
                                 <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5zM2.5 2a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zm6.5.5A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM1 10.5A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zm6.5.5A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5z" />
                             </svg>
@@ -368,6 +370,7 @@ export const Services = ({ className }: { className?: string }) => {
                             aria-label="List View"
                             style={{ display: "inline-flex", alignItems: "center", justifyContent: "center" }}
                         >
+                            {/* list icon */}
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-list" viewBox="0 0 16 16">
                                 <path fillRule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
                             </svg>
@@ -375,7 +378,6 @@ export const Services = ({ className }: { className?: string }) => {
                     </span>
                 </div>
             </div>
-            {/* Grid or List View */}
             {view === "grid" ? (
                 <div className="row g-4">
                     {servicesWithDistance.map((service, idx) => (
@@ -422,6 +424,18 @@ export const Services = ({ className }: { className?: string }) => {
                                     <button
                                         className="btn btn-primary mt-auto"
                                         disabled={!service.available}
+                                        onClick={() =>
+                                            navigate("/request", {
+                                                state: {
+                                                    serviceType: service.id,
+                                                    serviceName: service.name,
+                                                    serviceDescription: service.description,
+                                                    serviceImage: service.image,
+                                                    eta: liveData[idx]?.eta || service.eta,
+                                                    distance: liveData[idx]?.distance || (service.distance ? `${service.distance.toFixed(1)} km` : null)
+                                                }
+                                            })
+                                        }
                                     >
                                         {service.available ? "Request Now" : "Unavailable"}
                                     </button>
@@ -474,6 +488,18 @@ export const Services = ({ className }: { className?: string }) => {
                                 <button
                                     className="btn btn-primary ms-3"
                                     disabled={!service.available}
+                                    onClick={() =>
+                                        navigate("/request", {
+                                            state: {
+                                                serviceType: service.id,
+                                                serviceName: service.name,
+                                                serviceDescription: service.description,
+                                                serviceImage: service.image,
+                                                eta: liveData[idx]?.eta || service.eta,
+                                                distance: liveData[idx]?.distance || (service.distance ? `${service.distance.toFixed(1)} km` : null)
+                                            }
+                                        })
+                                    }
                                 >
                                     {service.available ? "Request Now" : "Unavailable"}
                                 </button>
