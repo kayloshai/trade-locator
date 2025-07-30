@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { TextInput } from "../../design-system/inputs/TextInput";
 import { auth, db } from "../../firebase/firebase"; // Adjust the import based on your project structure
-import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification, type User } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
@@ -26,7 +26,7 @@ export const SignUp = ({ className }: Props) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    const [showPassword, setShowPassword] = useState(false);
+    const [showPassword] = useState(false);
     const [emailTouched, setEmailTouched] = useState(false);
     const [passwordTouched, setPasswordTouched] = useState(false);
     const [formError, setFormError] = useState<string | null>(null);
@@ -59,8 +59,8 @@ export const SignUp = ({ className }: Props) => {
             // Send email verification
             await sendEmailVerification(user);
 
-            // Optionally, show a message to the user:
-            alert("A verification email has been sent to your email address. Please verify your email before logging in.");
+            // Redirect to email verification pending page
+            navigate("/email-verification-pending");
 
             // Create a Firestore document for the user
             await setDoc(doc(db, "users", user.uid), {
@@ -183,7 +183,10 @@ export const SignUp = ({ className }: Props) => {
                         style={{ fontSize: "1.2rem", lineHeight: 1 }}
                         aria-label="Clear all fields"
                     >
-                        ×
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-x-square" viewBox="0 0 16 16">
+                            <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
+                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+                        </svg>
                     </button>
                 </div>
             </form>

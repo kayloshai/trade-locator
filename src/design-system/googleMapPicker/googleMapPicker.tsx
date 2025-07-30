@@ -1,6 +1,6 @@
 // Place this in a component, e.g., GoogleMapPicker.tsx
 
-import React, { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import type { Libraries } from "@react-google-maps/api";
 import { useLocationContext } from "../../app/context/LocationContext";

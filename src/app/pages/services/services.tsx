@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useLocationContext } from "../../context/LocationContext";
 import { getDistanceFromLatLonInKm, estimateEtaMinutes, getDrivingDistance } from "../../functions/functions";
 import { useJsApiLoader } from "@react-google-maps/api";
 import type { Libraries } from "@react-google-maps/api";
-import { GOOGLE_MAP_LIBRARIES } from "../../../constants/googleMaps";
 
 interface Services {
     id: string;
@@ -282,7 +281,7 @@ export const Services = ({ className }: { className?: string }) => {
     );
 
     // Calculate distance and ETA for each service (sync fallback)
-    const servicesWithDistance = filteredServices.map((service, idx) => {
+    const servicesWithDistance = filteredServices.map((service) => {
         if (!userLocation || !service.location) return { ...service, distance: null, etaMins: null };
         const distance = getDistanceFromLatLonInKm(
             userLocation.lat,

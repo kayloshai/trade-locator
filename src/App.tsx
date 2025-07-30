@@ -26,7 +26,7 @@ function App() {
   return (
     <AuthProvider>
       <LocationProvider>
-        <BrowserRouter basename="/trade-locator/">
+        <BrowserRouter basename="/">
           <Routes>
             <Route element={<BaseLayout id='base-layout' />}>
               <Route path="/" element={<Home />} />

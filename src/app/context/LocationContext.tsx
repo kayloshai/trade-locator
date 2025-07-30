@@ -33,6 +33,7 @@ export const LocationProvider: React.FC<{ children: React.ReactNode }> = ({ chil
                 (err) => {
                     setLocationError("Location access is required to use this app. Please enable location services in your browser.");
                     setLocation(null);
+                    console.error("Geolocation error:", err);
                 }
             );
         } else {

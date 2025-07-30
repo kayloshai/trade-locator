@@ -71,7 +71,7 @@ export const Pricing = ({ className }: Props) => {
                 <Link to="/quote">request a custom quote</Link> for your project.
             </p>
             <div className="row row-cols-1 row-cols-md-3 mb-3 text-center g-4">
-                {pricingPlans.map((plan, idx) => (
+                {pricingPlans.map((plan) => (
                     <div
                         className={`col d-flex align-items-stretch${plan.highlight ? " position-relative" : ""}`}
                         key={plan.title}

@@ -60,6 +60,7 @@ export const Login = ({
             if (!user.emailVerified) {
                 await sendEmailVerification(user);
                 setError("Please verify your email address. We've sent you a new verification email.");
+                // Add a "Resend Email" button option
                 return;
             }
             if (onSubmit) onSubmit(value1, value2);
